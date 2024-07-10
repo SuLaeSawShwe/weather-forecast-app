@@ -50,6 +50,29 @@ function search(event) {
   searchCity(searchInputElement.value);
 }
 
+function weatherForecast() {
+  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHtml = "";
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `<div class="weather-forecast-week">
+  <div class="weather-forecast-day">${day}</div>
+  <div class="weather-forecast-icon">☀</div>
+  <div class="weather-forecast-temperature">
+    <div class="weather-forecast-temperature-highandlow">
+      <strong>30°</strong>
+    </div>
+    <div class="weather-forecast-temperature-highandlow">34°</div>
+  </div>
+</div>
+`;
+  });
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHtml;
+}
+
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", search);
 searchCity("Yangon");
+weatherForecast();
