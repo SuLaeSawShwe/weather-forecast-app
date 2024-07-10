@@ -34,8 +34,9 @@ function displayWeather(response) {
   humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
   windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`;
   currentDateElement.innerHTML = formatDate(date);
-
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="current-temperature-icon">`;
+
+  getForecast(response.data.city);
 }
 
 function searchCity(city) {
@@ -50,7 +51,14 @@ function search(event) {
   searchCity(searchInputElement.value);
 }
 
-function weatherForecast() {
+function getForecast(city) {
+  let apiKey = "b2a5adcct04b33178913oc335f405433";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(weatherForecast);
+}
+
+function weatherForecast(response) {
+  console.log(response.data);
   let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
   let forecastHtml = "";
   days.forEach(function (day) {
@@ -75,4 +83,3 @@ function weatherForecast() {
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", search);
 searchCity("Yangon");
-weatherForecast();
